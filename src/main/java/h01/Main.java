@@ -1,17 +1,13 @@
 package h01;
 
-import fopbot.Robot;
-import fopbot.World;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import fopbot.RobotFamily;
+import fopbot.World;
 
 /**
  * Main entry point in executing the program.
@@ -69,41 +65,37 @@ public class Main {
         World.getGlobalWorld().getGuiPanel().setFocusable(true);
         World.getGlobalWorld().getGuiPanel().requestFocusInWindow();
 
+        // Aus irgendeinem Grund funktioniert das hier nicht. Meckert mit pngs. Mit svgs
+        // kein Meckern aber machen tut er trotzdem nix.
 
-/*  Aus irgendeinem Grund funktioniert das hier nicht. Meckert mit pngs. Mit svgs kein Meckern aber machen tut er trotzdem nix.
-        try {
+        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_YELLOW.getIdentifier(),
+                Main.class.getResourceAsStream("/pacman.svg"),
+                Main.class.getResourceAsStream("/pacman.svg"), 270, 270);
+        World.getGlobalWorld().setAndLoadRobotImagesById(
+                RobotFamily.SQUARE_BLUE.getIdentifier(),
+                Main.class.getResourceAsStream("/ghost_blue.svg"),
+                Main.class.getResourceAsStream("/ghost_blue.svg"), 0, 0);
 
-            World.getGlobalWorld().setAndLoadRobotImages(Pacman.class, new FileInputStream(new File("res/pacman.png")),
-                new FileInputStream(new File("res/pacman.png")), 270, 270);
-            World.getGlobalWorld().setAndLoadRobotImages(BlueGhost.class,
-                new FileInputStream(new File("res/ghost_blue.png")),
-                new FileInputStream(new File("res/ghost_blue.png")), 0, 0);
+        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_ORANGE.getIdentifier(),
+                Main.class.getResourceAsStream("/ghost_orange.svg"),
+                Main.class.getResourceAsStream("/ghost_orange.svg"), 0, 0);
 
-            World.getGlobalWorld().setAndLoadRobotImages(OrangeGhost.class,
-                new FileInputStream(new File("res/ghost_orange.png")),
-                new FileInputStream(new File("res/ghost_orange.png")), 0, 0);
+        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_RED.getIdentifier(),
+                Main.class.getResourceAsStream("/ghost_red.svg"),
+                Main.class.getResourceAsStream("/ghost_red.svg"), 0, 0);
 
-            World.getGlobalWorld().setAndLoadRobotImages(RedGhost.class,
-                new FileInputStream(new File("res/ghost_red.png")),
-                new FileInputStream(new File("res/ghost_red.png")), 0, 0);
+        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_PURPLE.getIdentifier(),
+                Main.class.getResourceAsStream("/ghost_pink.svg"),
+                Main.class.getResourceAsStream("/ghost_pink.svg"), 0, 0);
 
-            World.getGlobalWorld().setAndLoadRobotImages(PinkGhost.class,
-                new FileInputStream(new File("res/ghost_pink.png")),
-                new FileInputStream(new File("res/ghost_pink.png")), 0, 0);
-
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
- */
         createBoard();
 
-        Pacman pacman = new Pacman(4,3);
+        Pacman pacman = new Pacman(4, 3);
 
-        BlueGhost blue = new BlueGhost(4,4);
-        OrangeGhost orange = new OrangeGhost(4,4);
-        PinkGhost pink = new PinkGhost(4,4);
-        RedGhost red = new RedGhost(4,4, pacman);
-
+        BlueGhost blue = new BlueGhost(4, 4);
+        OrangeGhost orange = new OrangeGhost(4, 4);
+        PinkGhost pink = new PinkGhost(4, 4);
+        RedGhost red = new RedGhost(4, 4, pacman);
 
         keyTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -179,65 +171,64 @@ public class Main {
     private static void createBoard() {
         int ls = 0;
 
-        World.placeVerticalWall(0,3);
-        World.placeVerticalWall(0,4);
-        World.placeVerticalWall(0,5);
+        World.placeVerticalWall(0, 3);
+        World.placeVerticalWall(0, 4);
+        World.placeVerticalWall(0, 5);
 
-        World.placeVerticalWall(1,2);
-        World.placeVerticalWall(1,4);
-        World.placeVerticalWall(1,6);
+        World.placeVerticalWall(1, 2);
+        World.placeVerticalWall(1, 4);
+        World.placeVerticalWall(1, 6);
 
-        World.placeVerticalWall(2,2);
-        World.placeVerticalWall(2,3);
-        World.placeVerticalWall(2,5);
-        World.placeVerticalWall(2,6);
+        World.placeVerticalWall(2, 2);
+        World.placeVerticalWall(2, 3);
+        World.placeVerticalWall(2, 5);
+        World.placeVerticalWall(2, 6);
 
-        World.placeVerticalWall(3,4);
-        World.placeVerticalWall(3,7);
+        World.placeVerticalWall(3, 4);
+        World.placeVerticalWall(3, 7);
 
-        World.placeVerticalWall(4,4);
-        World.placeVerticalWall(4,1);
+        World.placeVerticalWall(4, 4);
+        World.placeVerticalWall(4, 1);
 
-        World.placeVerticalWall(5,2);
-        World.placeVerticalWall(5,3);
-        World.placeVerticalWall(5,5);
-        World.placeVerticalWall(5,6);
+        World.placeVerticalWall(5, 2);
+        World.placeVerticalWall(5, 3);
+        World.placeVerticalWall(5, 5);
+        World.placeVerticalWall(5, 6);
 
-        World.placeVerticalWall(6,2);
-        World.placeVerticalWall(6,4);
-        World.placeVerticalWall(6,6);
+        World.placeVerticalWall(6, 2);
+        World.placeVerticalWall(6, 4);
+        World.placeVerticalWall(6, 6);
 
-        World.placeVerticalWall(7,3);
-        World.placeVerticalWall(7,4);
-        World.placeVerticalWall(7,5);
+        World.placeVerticalWall(7, 3);
+        World.placeVerticalWall(7, 4);
+        World.placeVerticalWall(7, 5);
 
+        World.placeHorizontalWall(1, 0);
+        World.placeHorizontalWall(1, 1);
+        World.placeHorizontalWall(1, 6);
+        World.placeHorizontalWall(1, 7);
 
-        World.placeHorizontalWall(1,0);
-        World.placeHorizontalWall(1,1);
-        World.placeHorizontalWall(1,6);
-        World.placeHorizontalWall(1,7);
+        World.placeHorizontalWall(2, 0);
+        World.placeHorizontalWall(2, 7);
 
-        World.placeHorizontalWall(2,0);
-        World.placeHorizontalWall(2,7);
+        World.placeHorizontalWall(3, 0);
+        World.placeHorizontalWall(3, 2);
+        World.placeHorizontalWall(3, 5);
 
-        World.placeHorizontalWall(3,0);
-        World.placeHorizontalWall(3,2);
-        World.placeHorizontalWall(3,5);
+        World.placeHorizontalWall(4, 1);
+        World.placeHorizontalWall(4, 3);
+        World.placeHorizontalWall(4, 6);
 
-        World.placeHorizontalWall(4,1);
-        World.placeHorizontalWall(4,3);
-        World.placeHorizontalWall(4,6);
+        World.placeHorizontalWall(5, 2);
+        World.placeHorizontalWall(5, 5);
+        World.placeHorizontalWall(5, 7);
 
-        World.placeHorizontalWall(5,2);
-        World.placeHorizontalWall(5,5);
-        World.placeHorizontalWall(5,7);
+        World.placeHorizontalWall(6, 0);
+        World.placeHorizontalWall(6, 7);
 
-        World.placeHorizontalWall(6,0);
-        World.placeHorizontalWall(6,7);
-
-        World.placeHorizontalWall(7,0);
-        World.placeHorizontalWall(7,1);
-        World.placeHorizontalWall(7,6);
-        World.placeHorizontalWall(7,7);
+        World.placeHorizontalWall(7, 0);
+        World.placeHorizontalWall(7, 1);
+        World.placeHorizontalWall(7, 6);
+        World.placeHorizontalWall(7, 7);
     }
 }
