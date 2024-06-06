@@ -2,8 +2,10 @@ package h01;
 
 import fopbot.Robot;
 import fopbot.RobotFamily;
+import h01.template.Ghost;
+import h01.template.TickBased;
 
-public class OrangeGhost extends Robot {
+public class OrangeGhost extends Robot implements Ghost, TickBased {
     private Pacman chased;
     public OrangeGhost(int x, int y) {
         super(x,y, RobotFamily.SQUARE_ORANGE);

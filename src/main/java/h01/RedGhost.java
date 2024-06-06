@@ -3,11 +3,13 @@ package h01;
 import fopbot.Direction;
 import fopbot.Robot;
 import fopbot.RobotFamily;
+import h01.template.Ghost;
+import h01.template.TickBased;
 
-public class RedGhost extends Robot {
-    private Pacman chased;
+public class RedGhost extends Robot implements Ghost, TickBased {
+    private Robot chased;
 
-    public RedGhost(int x, int y, Pacman chased) {
+    public RedGhost(int x, int y, Robot chased) {
         super(x,y, RobotFamily.SQUARE_RED);
         this.chased = chased;
     }
@@ -20,6 +22,8 @@ public class RedGhost extends Robot {
             while (!isFrontClear()) turnLeft();
             move();
         }
+
+        System.out.println("Red Ghost Update");
     }
 
     private void turnDirection(Direction dir) {

@@ -18,7 +18,7 @@ public class Util {
 		return min + rnd.nextInt(max - min + 1);
 	}
 
-    public static Direction furthestDirection(Pacman pacman, Robot chaser) {
+    public static Direction furthestDirection(Robot pacman, Robot chaser) {
         int px = pacman.getX();
         int py = pacman.getY();
         int cx = chaser.getX();
