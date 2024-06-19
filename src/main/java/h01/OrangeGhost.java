@@ -6,37 +6,28 @@ import h01.template.Ghost;
 import h01.template.TickBased;
 
 public class OrangeGhost extends Robot implements Ghost, TickBased {
-    private Pacman chased;
     public OrangeGhost(int x, int y) {
         super(x,y, RobotFamily.SQUARE_ORANGE);
     }
 
+    private boolean leftTurnNext = false;
+
     public void doMove() {
-        int rand = Util.getRandomInteger(0,9);
-        if(rand < 3) doRandomMove();
-        else {
-            while(!isFrontClear()) {
-                turnLeft();
-            }
+        if(isFrontClear()) {
             move();
+            return;
         }
-
-    }
-
-    public void doRandomMove() {
-        int freeLanes = 0;
-        for (int i = 0; i < 4; i++) {
-            turnLeft();
-            if(isFrontClear()) freeLanes++;
+        else {
+            while (!isFrontClear()) {
+                if (leftTurnNext) {
+                    turnLeft();
+                } else {
+                    turnLeft();
+                    turnLeft();
+                    turnLeft();
+                }
+            }
         }
-
-        int rand = Util.getRandomInteger(0,freeLanes);
-        for (int i = 0; i < rand; i++) {
-            turnLeft();
-        }
-        while(!isFrontClear()) {
-            turnLeft();
-        }
-        move();
+        leftTurnNext = !leftTurnNext;
     }
 }

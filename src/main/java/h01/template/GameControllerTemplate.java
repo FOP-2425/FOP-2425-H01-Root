@@ -167,6 +167,7 @@ public abstract class GameControllerTemplate {
     protected void setup() {
         setupWorld();
         loadImages();
+        //setupTheme();
         setupRobots();
         this.inputHandler.install();
     }
@@ -194,6 +195,21 @@ public abstract class GameControllerTemplate {
 
 
     }
+
+    /*
+    public void setupTheme() {
+        World.getGlobalWorld().getGuiPanel().setColorProfile(
+            ColorProfile.DEFAULT.toBuilder()
+                .backgroundColorDark(Color.BLACK)
+                .backgroundColorLight(Color.BLACK)
+                .fieldColorDark(Color.BLACK)
+                .fieldColorLight(Color.BLACK)
+                .innerBorderColorLight(Color.BLUE)
+                .InnerBorderColorDark(Color.BLUE)
+                .build()
+        );
+    }
+    */
 
     /**
      * Initializes the {@link World} and adds the {@link Robot}s to it.
