@@ -4,18 +4,18 @@ import fopbot.Direction;
 import fopbot.Robot;
 import h01.template.Controllable;
 import h01.template.Families;
+import h01.template.Player;
 import h01.template.TickBased;
 
 import static fopbot.Direction.*;
 
-public class Pacman extends Robot implements Controllable, TickBased {
+public class Pacman extends Player implements Controllable, TickBased {
     public Pacman(int x, int y) {
         super(x,y, Families.PACMAN);
     }
 
     public void handleKeyInput(int k) {
 
-        System.out.println("Pacman Update");
         if (k < 0 || k > 3) {
             return;
         }
@@ -31,7 +31,7 @@ public class Pacman extends Robot implements Controllable, TickBased {
         }
 
         if(isFrontClear()) move();
-        if(isOnACoin()) pickCoin();
+        if(isOnAPellet()) pickPellet();
 
     }
 

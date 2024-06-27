@@ -154,12 +154,27 @@ public abstract class GameControllerTemplate {
      */
     public void stopGame(boolean won) {
         this.gameLoopTimer.cancel();
+        endscreen(won?Color.GREEN:Color.RED);
+    }
 
-        for (int i = 0; i < World.getHeight(); i++) {
-            for (int j = 0; j < World.getWidth(); j++) {
-                World.getGlobalWorld().setFieldColor(i, j, won?Color.GREEN:Color.RED);
-            }
-        }
+    public void endscreen(Color color) {
+        World.getGlobalWorld().getGuiPanel().setColorProfile(
+            ColorProfile.DEFAULT.toBuilder()
+                .backgroundColorDark(Color.BLACK)
+                .backgroundColorLight(Color.BLACK)
+                .fieldColorDark(color)
+                .fieldColorLight(color)
+                .innerBorderColorLight(color)
+                .InnerBorderColorDark(color)
+                .wallColorDark(Color.BLUE)
+                .wallColorLight(Color.BLUE)
+                .outerBorderColorDark(Color.BLUE)
+                .outerBorderColorLight(Color.BLUE)
+                .coinColorDark(color)
+                .coinColorLight(color)
+                .build()
+        );
+        World.getGlobalWorld().getGuiPanel().updateGui();
     }
 
     /**
@@ -185,6 +200,8 @@ public abstract class GameControllerTemplate {
                 .wallColorLight(Color.BLUE)
                 .outerBorderColorDark(Color.BLUE)
                 .outerBorderColorLight(Color.BLUE)
+                .coinColorDark(Color.BLACK)
+                .coinColorLight(Color.BLACK)
                 .build()
         );
     }
@@ -196,6 +213,7 @@ public abstract class GameControllerTemplate {
         World.setSize(9, 9);
         World.setDelay(0);
         World.setVisible(true);
+        World.getGlobalWorld().setDrawTurnedOffRobots(false);
 
         World.placeVerticalWall(0, 3);
         World.placeVerticalWall(0, 4);
@@ -257,7 +275,16 @@ public abstract class GameControllerTemplate {
         World.placeHorizontalWall(7, 6);
         World.placeHorizontalWall(7, 7);
 
-        World.putCoins(0,0,1);
+
+        new Pellet(0,0);
+        new Pellet(1,0);
+        new Pellet(2,0);
+        new Pellet(3,0);
+        new Pellet(4,0);
+        new Pellet(5,0);
+        new Pellet(6,0);
+        new Pellet(7,0);
+        new Pellet(8,0);
 
         World.getGlobalWorld().setFieldColor(4, 4, Color.YELLOW);
     }

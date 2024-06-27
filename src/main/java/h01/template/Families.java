@@ -30,5 +30,12 @@ public class Families {
         "PACMAN",
         "/robots/pacman.svg",
         "/robots/pacman.svg",
-        Color.YELLOW);
+        Color.YELLOW,
+        270,
+        270);
+    public static RobotFamily PELLET = new SvgBasedRobotFamily(
+        "PELLET",
+        "/robots/pellet.svg",
+        "/robots/pellet.svg",
+        Color.WHITE);
 }
