@@ -2,15 +2,15 @@ package h01;
 
 import fopbot.Direction;
 import fopbot.Robot;
-import fopbot.RobotFamily;
 import h01.template.Controllable;
+import h01.template.Families;
 import h01.template.TickBased;
 
 import static fopbot.Direction.*;
 
 public class Pacman extends Robot implements Controllable, TickBased {
     public Pacman(int x, int y) {
-        super(x,y, RobotFamily.SQUARE_YELLOW);
+        super(x,y, Families.PACMAN);
     }
 
     public void handleKeyInput(int k) {

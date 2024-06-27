@@ -2,7 +2,7 @@ package h01;
 
 import fopbot.Direction;
 import fopbot.Robot;
-import fopbot.RobotFamily;
+import h01.template.Families;
 import h01.template.Ghost;
 import h01.template.TickBased;
 
@@ -10,7 +10,7 @@ public class RedGhost extends Robot implements Ghost, TickBased {
     private Robot chased;
 
     public RedGhost(int x, int y, Robot chased) {
-        super(x,y, RobotFamily.SQUARE_RED);
+        super(x,y, Families.GHOST_RED);
         this.chased = chased;
     }
 

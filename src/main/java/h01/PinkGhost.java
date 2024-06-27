@@ -1,13 +1,13 @@
 package h01;
 
 import fopbot.Robot;
-import fopbot.RobotFamily;
+import h01.template.Families;
 import h01.template.Ghost;
 import h01.template.TickBased;
 
 public class PinkGhost extends Robot implements Ghost, TickBased {
     public PinkGhost(int x, int y) {
-        super(x,y, RobotFamily.SQUARE_PURPLE);
+        super(x,y, Families.GHOST_PINK);
     }
 
     public void doMove() {

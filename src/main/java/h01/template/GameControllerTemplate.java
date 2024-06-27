@@ -1,5 +1,6 @@
 package h01.template;
 
+import fopbot.ColorProfile;
 import fopbot.Robot;
 import fopbot.RobotFamily;
 import fopbot.World;
@@ -166,37 +167,11 @@ public abstract class GameControllerTemplate {
      */
     protected void setup() {
         setupWorld();
-        loadImages();
         //setupTheme();
         setupRobots();
         this.inputHandler.install();
     }
 
-    private void loadImages() {
-        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_YELLOW.getIdentifier(),
-            Main.class.getResourceAsStream("/pacman.svg"),
-            Main.class.getResourceAsStream("/pacman.svg"), 270, 270);
-
-        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_BLUE.getIdentifier(),
-            Main.class.getResourceAsStream("/ghost_blue.svg"),
-            Main.class.getResourceAsStream("/ghost_blue.svg"), 0, 0);
-
-        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_ORANGE.getIdentifier(),
-            Main.class.getResourceAsStream("/ghost_orange.svg"),
-            Main.class.getResourceAsStream("/ghost_orange.svg"), 0, 0);
-
-        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_RED.getIdentifier(),
-            Main.class.getResourceAsStream("/ghost_red.svg"),
-            Main.class.getResourceAsStream("/ghost_red.svg"), 0, 0);
-
-        World.getGlobalWorld().setAndLoadRobotImagesById(RobotFamily.SQUARE_PURPLE.getIdentifier(),
-            Main.class.getResourceAsStream("/ghost_pink.svg"),
-            Main.class.getResourceAsStream("/ghost_pink.svg"), 0, 0);
-
-
-    }
-
-    /*
     public void setupTheme() {
         World.getGlobalWorld().getGuiPanel().setColorProfile(
             ColorProfile.DEFAULT.toBuilder()
@@ -209,7 +184,6 @@ public abstract class GameControllerTemplate {
                 .build()
         );
     }
-    */
 
     /**
      * Initializes the {@link World} and adds the {@link Robot}s to it.
