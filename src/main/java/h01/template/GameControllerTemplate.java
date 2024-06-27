@@ -167,7 +167,7 @@ public abstract class GameControllerTemplate {
      */
     protected void setup() {
         setupWorld();
-        //setupTheme();
+        setupTheme();
         setupRobots();
         this.inputHandler.install();
     }
@@ -179,8 +179,12 @@ public abstract class GameControllerTemplate {
                 .backgroundColorLight(Color.BLACK)
                 .fieldColorDark(Color.BLACK)
                 .fieldColorLight(Color.BLACK)
-                .innerBorderColorLight(Color.BLUE)
-                .InnerBorderColorDark(Color.BLUE)
+                .innerBorderColorLight(Color.BLACK)
+                .InnerBorderColorDark(Color.BLACK)
+                .wallColorDark(Color.BLUE)
+                .wallColorLight(Color.BLUE)
+                .outerBorderColorDark(Color.BLUE)
+                .outerBorderColorLight(Color.BLUE)
                 .build()
         );
     }
