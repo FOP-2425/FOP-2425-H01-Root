@@ -15,13 +15,9 @@ public class RedGhost extends Robot implements Ghost, TickBased {
     }
 
     public void doMove() {
-        int rand = Util.getRandomInteger(0,9);
-        if(rand < 3) doRandomMove();
-        else {
-            turnDirection(Util.furthestDirection(chased, this));
-            while (!isFrontClear()) turnLeft();
-            move();
-        }
+        turnDirection(Util.furthestDirection(chased, this));
+        while (!isFrontClear()) turnLeft();
+        move();
     }
 
     private void turnDirection(Direction dir) {
@@ -29,20 +25,4 @@ public class RedGhost extends Robot implements Ghost, TickBased {
             turnLeft();
     }
 
-    public void doRandomMove() {
-        int freeLanes = 0;
-        for (int i = 0; i < 4; i++) {
-            turnLeft();
-            if(isFrontClear()) freeLanes++;
-        }
-
-        int rand = Util.getRandomInteger(0,freeLanes);
-        for (int i = 0; i < rand; i++) {
-            turnLeft();
-        }
-        while(!isFrontClear()) {
-            turnLeft();
-        }
-        move();
-    }
 }
