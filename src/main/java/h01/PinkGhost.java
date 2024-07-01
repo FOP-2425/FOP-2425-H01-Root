@@ -4,6 +4,7 @@ import fopbot.Robot;
 import h01.template.Families;
 import h01.template.Ghost;
 import h01.template.TickBased;
+import h01.template.Util;
 
 public class PinkGhost extends Robot implements Ghost, TickBased {
     public PinkGhost(int x, int y) {

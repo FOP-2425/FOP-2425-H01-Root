@@ -5,6 +5,7 @@ import fopbot.Robot;
 import h01.template.Families;
 import h01.template.Ghost;
 import h01.template.TickBased;
+import h01.template.Util;
 
 public class RedGhost extends Robot implements Ghost, TickBased {
     private final Robot chased;

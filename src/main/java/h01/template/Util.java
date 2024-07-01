@@ -1,4 +1,4 @@
-package h01;
+package h01.template;
 
 import fopbot.Direction;
 import fopbot.Robot;
