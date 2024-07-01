@@ -1,12 +1,12 @@
 package h01.template;
 
-import fopbot.ColorProfile;
+import fopbot.*;
 import fopbot.Robot;
-import fopbot.RobotFamily;
-import fopbot.World;
 import h01.*;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 /**
@@ -26,7 +26,7 @@ public abstract class GameControllerTemplate {
     /**
      * The total umber of coins in the map.
      */
-    protected int totalCoins = 1;
+    protected int totalCoins;
 
     /**
      * The {@link Robot}s that are controlled by the {@link GameControllerTemplate}.
@@ -57,6 +57,8 @@ public abstract class GameControllerTemplate {
      * The {@link RedGhost} {@link Robot}.
      */
     protected Robot red;
+
+    private Point ghostField = new Point(4,4);
 
     /**
      * A {@link Map} that maps a {@link Robot} to the amount of ticks that have passed since the last tick action.
@@ -184,6 +186,8 @@ public abstract class GameControllerTemplate {
         setupWorld();
         setupTheme();
         setupRobots();
+        totalCoins = 2;//World.getHeight()*World.getWidth()-2;
+        setupCoins(totalCoins);
         this.inputHandler.install();
     }
 
@@ -200,8 +204,6 @@ public abstract class GameControllerTemplate {
                 .wallColorLight(Color.BLUE)
                 .outerBorderColorDark(Color.BLUE)
                 .outerBorderColorLight(Color.BLUE)
-                .coinColorDark(Color.BLACK)
-                .coinColorLight(Color.BLACK)
                 .build()
         );
     }
@@ -211,6 +213,27 @@ public abstract class GameControllerTemplate {
      */
     public void setupWorld() {
         World.setSize(9, 9);
+
+        World.getGlobalWorld().setGuiPanel(new GuiPanel(World.getGlobalWorld()) {
+            @Override
+            @SuppressWarnings("UnstableApiUsage")
+            protected void drawCoin(final Coin c, final Graphics g, final boolean evadeRobots) {
+                final var g2d = (Graphics2D) g;
+                final var oldColor = g2d.getColor();
+                g2d.setColor(getColorProfile().getCoinColor());
+                final Rectangle2D fieldBounds = scale(PaintUtils.getFieldBounds(c, world.getHeight()));
+                final double radius = scale(5d);
+                g2d.fill(
+                    new Ellipse2D.Double(
+                        fieldBounds.getCenterX() - radius,
+                        fieldBounds.getCenterY() - radius,
+                        2 * radius,
+                        2 * radius
+                    )
+                );
+            }
+        });
+
         World.setDelay(0);
         World.setVisible(true);
         World.getGlobalWorld().setDrawTurnedOffRobots(false);
@@ -276,17 +299,9 @@ public abstract class GameControllerTemplate {
         World.placeHorizontalWall(7, 7);
 
 
-        new Pellet(0,0);
-        new Pellet(1,0);
-        new Pellet(2,0);
-        new Pellet(3,0);
-        new Pellet(4,0);
-        new Pellet(5,0);
-        new Pellet(6,0);
-        new Pellet(7,0);
-        new Pellet(8,0);
 
-        World.getGlobalWorld().setFieldColor(4, 4, Color.YELLOW);
+
+        World.getGlobalWorld().setFieldColor(ghostField.x, ghostField.y, Color.YELLOW);
     }
 
     /**
@@ -294,10 +309,29 @@ public abstract class GameControllerTemplate {
      */
     public void setupRobots() {
         this.robots.add(pacman = new Pacman(4,3));
-        this.robots.add(blue = new BlueGhost(4,4));
-        this.robots.add(orange = new OrangeGhost(4,4));
-        this.robots.add(pink = new PinkGhost(4,4));
-        this.robots.add(red = new RedGhost(4,4, pacman));
+        this.robots.add(blue = new BlueGhost(ghostField.x, ghostField.y));
+        this.robots.add(orange = new OrangeGhost(ghostField.x, ghostField.y));
+        this.robots.add(pink = new PinkGhost(ghostField.x, ghostField.y));
+        this.robots.add(red = new RedGhost(ghostField.x, ghostField.y, pacman));
+    }
+
+    public void setupCoins(int numberOfCoins) {
+        if (numberOfCoins > World.getHeight() * World.getWidth() - 2) {
+            throw new IllegalArgumentException("Too many coins for this world size.");
+        }
+
+        ArrayList<Point> Fields = new ArrayList<>();
+        for (int y = 0; y < World.getHeight(); y++) {
+            for (int x = 0; x < World.getWidth(); x++) {
+                if (!((x == ghostField.x && y == ghostField.y)||x == pacman.getX() && y == pacman.getY()))Fields.add(new Point(x, y));
+            }
+        }
+
+        for (int i = 0; i < numberOfCoins; i++) {
+            int randomIndex = (int) (Math.random() * Fields.size());
+            Point spot = Fields.remove(randomIndex);
+            World.putCoins(spot.x, spot.y, 1);
+        }
     }
 
     /**

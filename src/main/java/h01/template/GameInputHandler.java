@@ -105,22 +105,4 @@ public class GameInputHandler {
     public int getDirection() {
         return this.direction.get();
     }
-
-    /**
-     * Returns whether the robot should put a coin on the current field.
-     *
-     * @return whether the robot should put a coin on the current field.
-     */
-    public boolean getShouldPickCoins() {
-        return this.shouldPickCoins.get();
-    }
-
-    /**
-     * Returns whether the robot should pick a coin from the current field.
-     *
-     * @return whether the robot should pick a coin from the current field.
-     */
-    public boolean getShouldPutCoins() {
-        return this.shouldPutCoins.get();
-    }
 }
