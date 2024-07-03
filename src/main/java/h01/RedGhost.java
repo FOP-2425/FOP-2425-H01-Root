@@ -1,5 +1,7 @@
 package h01;
 
+import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
+
 import fopbot.Direction;
 import fopbot.Robot;
 import h01.template.Families;
@@ -11,19 +13,25 @@ public class RedGhost extends Robot implements Ghost, TickBased {
     private final Robot chased;
 
     public RedGhost(int x, int y, Robot chased) {
-        super(x,y, Families.GHOST_RED);
+        super(x, y, Families.GHOST_RED);
         this.chased = chased;
     }
 
+    @Override
+    @StudentImplementationRequired
     public void doMove() {
         turnDirection(Util.furthestDirection(chased, this));
-        while (!isFrontClear()) turnLeft();
+        while (!isFrontClear()) {
+            turnLeft();
+        }
         move();
     }
 
+    @StudentImplementationRequired
     private void turnDirection(Direction dir) {
-        while (getDirection() != dir)
+        while (getDirection() != dir) {
             turnLeft();
+        }
     }
 
 }

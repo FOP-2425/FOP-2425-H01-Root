@@ -34,6 +34,7 @@ public class Pacman extends Robot implements Controllable, TickBased {
      *
      * @param k the int value of the pressed key
      */
+    @Override
     @StudentImplementationRequired
     public void handleKeyInput(int k) {
         if (k < 0 || k > 3) {
