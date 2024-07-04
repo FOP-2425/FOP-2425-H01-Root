@@ -29,7 +29,7 @@ public class PinkGhost extends Robot implements Ghost, TickBased {
      * Then moves in the first direction that is clear.
      */
     @Override
-    @StudentImplementationRequired
+    @StudentImplementationRequired("H2.2")
     public void doMove() {
         int freeLanes = 0;
         for (int i = 0; i < 4; i++) {
