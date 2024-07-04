@@ -9,7 +9,7 @@ import h01.template.Ghost;
 import h01.template.TickBased;
 
 /**
- * {@link OrangeGhost} is a {@link Robot} that looks like a ghost.
+ * {@link OrangeGhost} is a {@link Robot} that looks like a orange ghost.
  * It tries to move in a straight line and alternates between turning left and
  * right.
  */

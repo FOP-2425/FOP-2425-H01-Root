@@ -24,11 +24,11 @@ public class Util {
     }
 
     /**
-     * Returns the direction in which the robot is the furthest away from the chaser
+     * Returns the direction in which the robot is the closest to the chaser
      *
      * @param pacman the robot that is being chased
      * @param chaser the robot that is chasing
-     * @return the direction in which the robot is the furthest away from the chaser
+     * @return the direction in which the robot is the closest to the chaser
      */
     public static Direction furthestDirection(Robot pacman, Robot chaser) {
         int px = pacman.getX();
