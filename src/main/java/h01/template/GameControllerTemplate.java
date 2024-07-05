@@ -1,16 +1,32 @@
 package h01.template;
 
-import fopbot.*;
-import fopbot.Robot;
-import h01.*;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import fopbot.Coin;
+import fopbot.ColorProfile;
+import fopbot.GuiPanel;
+import fopbot.PaintUtils;
+import fopbot.Robot;
+import fopbot.World;
+import h01.BlueGhost;
+import h01.OrangeGhost;
+import h01.Pacman;
+import h01.PinkGhost;
+import h01.RedGhost;
 
 /**
- * A {@link GameControllerTemplate} controls the game loop and the {@link Robot}s and checks the win condition.
+ * A {@link GameControllerTemplate} controls the game loop and the
+ * {@link Robot}s and checks the win condition.
  */
 public abstract class GameControllerTemplate {
     /**
@@ -58,10 +74,11 @@ public abstract class GameControllerTemplate {
      */
     protected Robot red;
 
-    private Point ghostField = new Point(4,4);
+    private Point ghostField = new Point(4, 4);
 
     /**
-     * A {@link Map} that maps a {@link Robot} to the amount of ticks that have passed since the last tick action.
+     * A {@link Map} that maps a {@link Robot} to the amount of ticks that have
+     * passed since the last tick action.
      */
     private final Map<Robot, Integer> robotTicks = new HashMap<>();
 
@@ -79,22 +96,24 @@ public abstract class GameControllerTemplate {
                     GameControllerTemplate.this.robotTicks.put(robot, 0);
                 }
                 if (GameControllerTemplate.this.robotTicks.get(robot) < tb.getUpdateDelay()) {
-                    GameControllerTemplate.this.robotTicks.put(robot, GameControllerTemplate.this.robotTicks.get(robot) + 1);
+                    GameControllerTemplate.this.robotTicks.put(robot,
+                            GameControllerTemplate.this.robotTicks.get(robot) + 1);
                     continue;
                 }
                 GameControllerTemplate.this.robotTicks.put(robot, 0);
                 // do tick action
                 if (robot instanceof final Pacman r) {
                     r.handleKeyInput(
-                        GameControllerTemplate.this.inputHandler.getDirection()
-                    );
+                            GameControllerTemplate.this.inputHandler.getDirection());
                 } else if (robot instanceof final Ghost r) {
                     r.doMove();
                 }
             }
             // check win condition
-            if(checkWinCondition()) stopGame(true);
-            if(checkLoseCondition()) stopGame(false);
+            if (checkWinCondition())
+                stopGame(true);
+            if (checkLoseCondition())
+                stopGame(false);
         }
     };
 
@@ -156,26 +175,25 @@ public abstract class GameControllerTemplate {
      */
     public void stopGame(boolean won) {
         this.gameLoopTimer.cancel();
-        endscreen(won?Color.GREEN:Color.RED);
+        endscreen(won ? Color.GREEN : Color.RED);
     }
 
     public void endscreen(Color color) {
         World.getGlobalWorld().getGuiPanel().setColorProfile(
-            ColorProfile.DEFAULT.toBuilder()
-                .backgroundColorDark(Color.BLACK)
-                .backgroundColorLight(Color.BLACK)
-                .fieldColorDark(color)
-                .fieldColorLight(color)
-                .innerBorderColorLight(color)
-                .InnerBorderColorDark(color)
-                .wallColorDark(Color.BLUE)
-                .wallColorLight(Color.BLUE)
-                .outerBorderColorDark(Color.BLUE)
-                .outerBorderColorLight(Color.BLUE)
-                .coinColorDark(color)
-                .coinColorLight(color)
-                .build()
-        );
+                ColorProfile.DEFAULT.toBuilder()
+                        .backgroundColorDark(Color.BLACK)
+                        .backgroundColorLight(Color.BLACK)
+                        .fieldColorDark(color)
+                        .fieldColorLight(color)
+                        .innerBorderColorLight(color)
+                        .innerBorderColorDark(color)
+                        .wallColorDark(Color.BLUE)
+                        .wallColorLight(Color.BLUE)
+                        .outerBorderColorDark(Color.BLUE)
+                        .outerBorderColorLight(Color.BLUE)
+                        .coinColorDark(color)
+                        .coinColorLight(color)
+                        .build());
         World.getGlobalWorld().getGuiPanel().updateGui();
     }
 
@@ -186,26 +204,25 @@ public abstract class GameControllerTemplate {
         setupWorld();
         setupTheme();
         setupRobots();
-        totalCoins = 2;//World.getHeight()*World.getWidth()-2;
+        totalCoins = 2;// World.getHeight()*World.getWidth()-2;
         setupCoins(totalCoins);
         this.inputHandler.install();
     }
 
     public void setupTheme() {
         World.getGlobalWorld().getGuiPanel().setColorProfile(
-            ColorProfile.DEFAULT.toBuilder()
-                .backgroundColorDark(Color.BLACK)
-                .backgroundColorLight(Color.BLACK)
-                .fieldColorDark(Color.BLACK)
-                .fieldColorLight(Color.BLACK)
-                .innerBorderColorLight(Color.BLACK)
-                .InnerBorderColorDark(Color.BLACK)
-                .wallColorDark(Color.BLUE)
-                .wallColorLight(Color.BLUE)
-                .outerBorderColorDark(Color.BLUE)
-                .outerBorderColorLight(Color.BLUE)
-                .build()
-        );
+                ColorProfile.DEFAULT.toBuilder()
+                        .backgroundColorDark(Color.BLACK)
+                        .backgroundColorLight(Color.BLACK)
+                        .fieldColorDark(Color.BLACK)
+                        .fieldColorLight(Color.BLACK)
+                        .innerBorderColorLight(Color.BLACK)
+                        .innerBorderColorDark(Color.BLACK)
+                        .wallColorDark(Color.BLUE)
+                        .wallColorLight(Color.BLUE)
+                        .outerBorderColorDark(Color.BLUE)
+                        .outerBorderColorLight(Color.BLUE)
+                        .build());
     }
 
     /**
@@ -221,16 +238,14 @@ public abstract class GameControllerTemplate {
                 final var g2d = (Graphics2D) g;
                 final var oldColor = g2d.getColor();
                 g2d.setColor(getColorProfile().getCoinColor());
-                final Rectangle2D fieldBounds = scale(PaintUtils.getFieldBounds(c, world.getHeight()));
+                final Rectangle2D fieldBounds = scale(PaintUtils.getFieldBounds(c, world));
                 final double radius = scale(5d);
                 g2d.fill(
-                    new Ellipse2D.Double(
-                        fieldBounds.getCenterX() - radius,
-                        fieldBounds.getCenterY() - radius,
-                        2 * radius,
-                        2 * radius
-                    )
-                );
+                        new Ellipse2D.Double(
+                                fieldBounds.getCenterX() - radius,
+                                fieldBounds.getCenterY() - radius,
+                                2 * radius,
+                                2 * radius));
             }
         });
 
@@ -298,9 +313,6 @@ public abstract class GameControllerTemplate {
         World.placeHorizontalWall(7, 6);
         World.placeHorizontalWall(7, 7);
 
-
-
-
         World.getGlobalWorld().setFieldColor(ghostField.x, ghostField.y, Color.YELLOW);
     }
 
@@ -308,7 +320,7 @@ public abstract class GameControllerTemplate {
      * Adds the {@link Robot}s to the {@link World}.
      */
     public void setupRobots() {
-        this.robots.add(pacman = new Pacman(4,3));
+        this.robots.add(pacman = new Pacman(4, 3));
         this.robots.add(blue = new BlueGhost(ghostField.x, ghostField.y));
         this.robots.add(orange = new OrangeGhost(ghostField.x, ghostField.y));
         this.robots.add(pink = new PinkGhost(ghostField.x, ghostField.y));
@@ -323,7 +335,8 @@ public abstract class GameControllerTemplate {
         ArrayList<Point> Fields = new ArrayList<>();
         for (int y = 0; y < World.getHeight(); y++) {
             for (int x = 0; x < World.getWidth(); x++) {
-                if (!((x == ghostField.x && y == ghostField.y)||x == pacman.getX() && y == pacman.getY()))Fields.add(new Point(x, y));
+                if (!((x == ghostField.x && y == ghostField.y) || x == pacman.getX() && y == pacman.getY()))
+                    Fields.add(new Point(x, y));
             }
         }
 
