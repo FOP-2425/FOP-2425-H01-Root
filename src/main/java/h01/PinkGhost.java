@@ -24,9 +24,9 @@ public class PinkGhost extends Robot implements Ghost, TickBased {
     }
 
     /**
-     * Finda how in many directions the ghost can move and then turns a random
+     * Finds in how many directions the ghost can move and then turns a random
      * amount of times to the left.
-     * Then moves in the first direction that is clear.
+     * The ghost then moves forward or turns to the left until it can move forward.
      */
     @Override
     @StudentImplementationRequired("H2.2")
