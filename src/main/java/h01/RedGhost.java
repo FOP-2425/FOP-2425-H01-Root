@@ -33,7 +33,7 @@ public class RedGhost extends Robot implements Ghost, TickBased {
      * Moves the robot in the direction of the chased robot.
      */
     @Override
-    @StudentImplementationRequired("H2.3")
+    @StudentImplementationRequired("H2.4")
     public void doMove() {
         turnDirection(Util.furthestDirection(chased, this));
         while (!isFrontClear()) {

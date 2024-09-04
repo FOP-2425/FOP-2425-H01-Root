@@ -29,7 +29,7 @@ public class PinkGhost extends Robot implements Ghost, TickBased {
      * The ghost then moves forward or turns to the left until it can move forward.
      */
     @Override
-    @StudentImplementationRequired("H2.1")
+    @StudentImplementationRequired("H2.2")
     public void doMove() {
         int freeLanes = 0;
         for (int i = 0; i < 4; i++) {
@@ -39,9 +39,9 @@ public class PinkGhost extends Robot implements Ghost, TickBased {
             }
         }
 
-        int rand = Util.getRandomInteger(0, freeLanes);
+        int rand = Util.getRandomInteger(1, freeLanes);
         for (int i = 0; i < rand; i++) {
-            while(!isFrontClear()) {
+            while (!isFrontClear()) {
                 turnLeft();
             }
         }

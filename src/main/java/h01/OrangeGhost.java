@@ -34,7 +34,7 @@ public class OrangeGhost extends Robot implements Ghost, TickBased {
      * The robot alternates between turning left and right.
      */
     @Override
-    @StudentImplementationRequired("H2.2")
+    @StudentImplementationRequired("H2.3")
     public void doMove() {
         if (isFrontClear()) {
             move();
