@@ -21,7 +21,7 @@ public class H01_RubricProvider implements RubricProvider {
                     criterion("Das blaue Gespenst dreht sich nach rechts."),
                     criterion(
                             "Wenn eine Wand vor dem blauen Gespenst ist, dreht es sich nach links, bis es keine Wand mehr vor sich hat."),
-                    critertion("Das blaue Gespenst bewegt sich ein Feld nach vorne."))
+                    criterion("Das blaue Gespenst bewegt sich ein Feld nach vorne."))
             .build();
 
     private static final Criterion H1_2_2 = Criterion.builder()
