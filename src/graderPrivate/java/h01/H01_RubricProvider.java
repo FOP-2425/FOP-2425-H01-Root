@@ -58,9 +58,12 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.2.4 | Rotes Gespenst")
             .maxPoints(3)
             .addChildCriteria(
-                    criterion("Das rote Gespenst dreht sich in die Richtung in der sich Pacman befindet."),
-                    criterion("Das rote Gespenst dreht weiter nach links, bis es keine Wand mehr vor sich hat."),
-                    criterion("Das rote Gespenst bewegt sich ein Feld nach vorne."))
+                criterion("Das rote Gespenst dreht sich in die Richtung in der sich Pacman befindet.",
+                    JUnitTestRef.ofMethod(() -> RedGhostTest.class.getDeclaredMethod("testTurnToPacman"))),
+                criterion("Das rote Gespenst dreht weiter nach links, bis es keine Wand mehr vor sich hat.",
+                    JUnitTestRef.ofMethod(() -> RedGhostTest.class.getDeclaredMethod("testTurnLeft"))),
+                criterion("Das rote Gespenst bewegt sich ein Feld nach vorne.",
+                    JUnitTestRef.ofMethod(() -> RedGhostTest.class.getDeclaredMethod("testMove"))))
             .build();
 
     private static final Criterion H1_2 = Criterion.builder()
