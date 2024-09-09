@@ -1,5 +1,6 @@
 package h01;
 
+import fopbot.Direction;
 import org.sourcegrade.jagr.api.rubric.*;
 import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.criterion;
 
@@ -9,9 +10,12 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.1 | Steuerung von Pacman")
             .maxPoints(4)
             .addChildCriteria(
-                    criterion("Pacman kann sich nach links, rechts, oben und unten bewegen."),
-                    criterion("Pacman kann sich nicht durch Wände bewegen."),
-                    criterion("Pacman sammelt Münzen auf, wenn er sich auf ein Feld mit einer Münze bewegt."))
+                    criterion("Pacman kann sich nach links, rechts, oben und unten bewegen.",
+                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testBasicMovement", Direction.class))),
+                    criterion("Pacman kann sich nicht durch Wände bewegen.",
+                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithWalls", Direction.class))),
+                    criterion("Pacman sammelt Münzen auf, wenn er sich auf ein Feld mit einer Münze bewegt.",
+                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithCoins", Direction.class))))
             .build();
 
     private static final Criterion H1_2_1 = Criterion.builder()
