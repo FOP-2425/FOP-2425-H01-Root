@@ -10,7 +10,7 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.1 | Steuerung von Pacman")
             .maxPoints(4)
             .addChildCriteria(
-                criterion("Pacman kann sich nach links, rechts, oben und unten bewegen.",
+                criterion("Pacman kann sich nach links, rechts, oben und unten bewegen.", 2,
                     JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testBasicMovement", Direction.class))),
                 criterion("Pacman kann sich nicht durch Wände bewegen.",
                     JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithWalls", Direction.class))),
