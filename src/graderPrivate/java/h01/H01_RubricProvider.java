@@ -10,22 +10,24 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.1 | Steuerung von Pacman")
             .maxPoints(4)
             .addChildCriteria(
-                    criterion("Pacman kann sich nach links, rechts, oben und unten bewegen.",
-                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testBasicMovement", Direction.class))),
-                    criterion("Pacman kann sich nicht durch Wände bewegen.",
-                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithWalls", Direction.class))),
-                    criterion("Pacman sammelt Münzen auf, wenn er sich auf ein Feld mit einer Münze bewegt.",
-                        JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithCoins", Direction.class))))
+                criterion("Pacman kann sich nach links, rechts, oben und unten bewegen.",
+                    JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testBasicMovement", Direction.class))),
+                criterion("Pacman kann sich nicht durch Wände bewegen.",
+                    JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithWalls", Direction.class))),
+                criterion("Pacman sammelt Münzen auf, wenn er sich auf ein Feld mit einer Münze bewegt.",
+                    JUnitTestRef.ofMethod(() -> PacmanTest.class.getDeclaredMethod("testMovementWithCoins", Direction.class))))
             .build();
 
     private static final Criterion H1_2_1 = Criterion.builder()
             .shortDescription("H1.2.1 | Blaues Gespenst")
             .maxPoints(2)
             .addChildCriteria(
-                    criterion("Das blaue Gespenst dreht sich nach rechts."),
-                    criterion(
-                            "Wenn eine Wand vor dem blauen Gespenst ist, dreht es sich nach links, bis es keine Wand mehr vor sich hat."),
-                    criterion("Das blaue Gespenst bewegt sich ein Feld nach vorne."))
+                criterion("Das blaue Gespenst dreht sich nach rechts.",
+                    JUnitTestRef.ofMethod(() -> BlueGhostTest.class.getDeclaredMethod("testRightTurn"))),
+                criterion("Wenn eine Wand vor dem blauen Gespenst ist, dreht es sich nach links, bis es keine Wand mehr vor sich hat.",
+                    JUnitTestRef.ofMethod(() -> BlueGhostTest.class.getDeclaredMethod("testLeftTurns"))),
+                criterion("Das blaue Gespenst bewegt sich ein Feld nach vorne.",
+                    JUnitTestRef.ofMethod(() -> BlueGhostTest.class.getDeclaredMethod("testMove"))))
             .build();
 
     private static final Criterion H1_2_2 = Criterion.builder()
