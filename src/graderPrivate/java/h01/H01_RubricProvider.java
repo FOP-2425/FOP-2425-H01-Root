@@ -34,10 +34,12 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.2.2 | Pinkes Gespenst")
             .maxPoints(3)
             .addChildCriteria(
-                    criterion("Das pinke Gespenst findet die korrekte Anzahl an freien Wegen."),
-                    criterion("Das pinke Gespenst wählt einen zufälligen Weg aus den freien Wegen."),
-                    criterion("Das pinke Gespenst dreht sich zu dem gewählten freien Weg."),
-                    criterion("Das pinke Gespenst bewegt sich ein Feld nach vorne."))
+                criterion("Das pinke Gespenst wählt einen zufälligen Weg aus den freien Wegen.",
+                    JUnitTestRef.ofMethod(() -> PinkGhostTest.class.getDeclaredMethod("testPicksRandomFreePath"))),
+                criterion("Das pinke Gespenst dreht sich zu dem gewählten freien Weg.",
+                    JUnitTestRef.ofMethod(() -> PinkGhostTest.class.getDeclaredMethod("testTurnToFreePath"))),
+                criterion("Das pinke Gespenst bewegt sich ein Feld nach vorne.",
+                    JUnitTestRef.ofMethod(() -> PinkGhostTest.class.getDeclaredMethod("testMove"))))
             .build();
 
     private static final Criterion H1_2_3 = Criterion.builder()
