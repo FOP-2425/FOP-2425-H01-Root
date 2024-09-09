@@ -46,9 +46,12 @@ public class H01_RubricProvider implements RubricProvider {
             .shortDescription("H1.2.3 | Oranges Gespenst")
             .maxPoints(4)
             .addChildCriteria(
-                    criterion("Das orange Gespenst geht einen Schritt nach vorne, wenn keine Wand vor ihm ist."),
-                    criterion("Das orange Gespenst dreht sich zu Beginn rechts herum."),
-                    criterion("Das orange Gespenst kehrt am des Aufrufs von doMove() seine Drehrichtung um."))
+                criterion("Das orange Gespenst läuft solange nach vorne, bis eine Wand vor ihm ist.",
+                    JUnitTestRef.ofMethod(() -> OrangeGhostTest.class.getDeclaredMethod("testMoveForward"))),
+                criterion("Das orange Gespenst dreht sich nach dem ersten Aufruf rechts herum.",
+                    JUnitTestRef.ofMethod(() -> OrangeGhostTest.class.getDeclaredMethod("testTurnsRight"))),
+                criterion("Das orange Gespenst kehrt am des Aufrufs von doMove() seine Drehrichtung um.", 2,
+                    JUnitTestRef.ofMethod(() -> OrangeGhostTest.class.getDeclaredMethod("testSwitchTurning"))))
             .build();
 
     private static final Criterion H1_2_4 = Criterion.builder()
