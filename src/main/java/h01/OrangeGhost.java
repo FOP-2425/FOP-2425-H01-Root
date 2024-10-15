@@ -49,7 +49,7 @@ public class OrangeGhost extends Robot implements Ghost, TickBased {
                     turnLeft();
                 }
             }
+            leftTurnNext = !leftTurnNext;
         }
-        leftTurnNext = !leftTurnNext;
     }
 }
