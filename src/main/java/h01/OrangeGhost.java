@@ -1,6 +1,5 @@
 package h01;
 
-import org.tudalgo.algoutils.student.annotation.SolutionOnly;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 import fopbot.Robot;
@@ -24,7 +23,6 @@ public class OrangeGhost extends Robot implements Ghost, TickBased {
         super(x, y, Families.GHOST_ORANGE);
     }
 
-    @SolutionOnly
     private boolean leftTurnNext = false;
 
     /**
