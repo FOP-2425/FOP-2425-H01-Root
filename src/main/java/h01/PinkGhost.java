@@ -41,9 +41,9 @@ public class PinkGhost extends Robot implements Ghost, TickBased {
 
         int rand = Util.getRandomInteger(1, freeLanes);
         for (int i = 0; i < rand; i++) {
-            while (!isFrontClear()) {
+            do {
                 turnLeft();
-            }
+            } while (!isFrontClear());
         }
         move();
     }

@@ -95,9 +95,9 @@ public class PinkGhostTest {
             call(pinkGhost::doMove, context, result -> "An exception occurred while invoking doMove");
         }
 
-        assertEquals(startX + Direction.UP.getDx(), pinkGhost.getX(), context, result ->
+        assertEquals(startX + Direction.DOWN.getDx(), pinkGhost.getX(), context, result ->
             "The pink ghost's x-coordinate is incorrect");
-        assertEquals(startY + Direction.UP.getDy(), pinkGhost.getY(), context, result ->
+        assertEquals(startY + Direction.DOWN.getDy(), pinkGhost.getY(), context, result ->
             "The pink ghost's y-coordinate is incorrect");
     }
 }
