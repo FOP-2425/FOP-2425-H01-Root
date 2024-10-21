@@ -1,8 +1,12 @@
 package h01;
 
-import fopbot.Direction;
-import fopbot.World;
-import h01.template.Util;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.call;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -11,10 +15,9 @@ import org.mockito.stubbing.Answer;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import fopbot.Direction;
+import fopbot.World;
+import h01.template.Util;
 
 @TestForSubmission
 public class PinkGhostTest {
@@ -34,10 +37,10 @@ public class PinkGhostTest {
         World.placeHorizontalWall(startX, startY);
         pinkGhost = new PinkGhost(startX, startY);
         context = contextBuilder()
-            .add("world height", worldHeight)
-            .add("world width", worldWidth)
-            .add("pink ghost", pinkGhost)
-            .build();
+                .add("world height", worldHeight)
+                .add("world width", worldWidth)
+                .add("pink ghost", pinkGhost)
+                .build();
     }
 
     @Test
@@ -69,7 +72,7 @@ public class PinkGhostTest {
         Method getRandomIntegerMethod = Util.class.getDeclaredMethod("getRandomInteger", int.class, int.class);
         Answer<?> answer = invocation -> {
             if (invocation.getMethod().equals(getRandomIntegerMethod)) {
-                return 1;
+                return 2;
             } else {
                 return invocation.callRealMethod();
             }
@@ -78,7 +81,8 @@ public class PinkGhostTest {
             call(pinkGhost::doMove, context, result -> "An exception occurred while invoking doMove");
         }
 
-        assertEquals(Direction.LEFT, pinkGhost.getDirection(), context, result -> "Pink ghost does not face the right direction");
+        assertEquals(Direction.RIGHT, pinkGhost.getDirection(), context,
+                result -> "Pink ghost does not face the right direction");
     }
 
     @Test
@@ -95,9 +99,9 @@ public class PinkGhostTest {
             call(pinkGhost::doMove, context, result -> "An exception occurred while invoking doMove");
         }
 
-        assertEquals(startX + Direction.LEFT.getDx(), pinkGhost.getX(), context, result ->
-            "The pink ghost's x-coordinate is incorrect");
-        assertEquals(startY + Direction.LEFT.getDy(), pinkGhost.getY(), context, result ->
-            "The pink ghost's y-coordinate is incorrect");
+        assertEquals(startX + Direction.LEFT.getDx(), pinkGhost.getX(), context,
+                result -> "The pink ghost's x-coordinate is incorrect");
+        assertEquals(startY + Direction.LEFT.getDy(), pinkGhost.getY(), context,
+                result -> "The pink ghost's y-coordinate is incorrect");
     }
 }
