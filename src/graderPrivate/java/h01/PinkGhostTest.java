@@ -30,8 +30,8 @@ public class PinkGhostTest {
         int worldWidth = 5;
         World.setSize(worldWidth, worldHeight);
         World.setDelay(0);
-        World.placeVerticalWall(startX - 1, startY);
-        World.placeVerticalWall(startX, startY);
+        World.placeHorizontalWall(startX, startY - 1);
+        World.placeHorizontalWall(startX, startY);
         pinkGhost = new PinkGhost(startX, startY);
         context = contextBuilder()
             .add("world height", worldHeight)
@@ -78,7 +78,7 @@ public class PinkGhostTest {
             call(pinkGhost::doMove, context, result -> "An exception occurred while invoking doMove");
         }
 
-        assertEquals(Direction.UP, pinkGhost.getDirection(), context, result -> "Pink ghost does not face the right direction");
+        assertEquals(Direction.LEFT, pinkGhost.getDirection(), context, result -> "Pink ghost does not face the right direction");
     }
 
     @Test
@@ -95,9 +95,9 @@ public class PinkGhostTest {
             call(pinkGhost::doMove, context, result -> "An exception occurred while invoking doMove");
         }
 
-        assertEquals(startX + Direction.DOWN.getDx(), pinkGhost.getX(), context, result ->
+        assertEquals(startX + Direction.LEFT.getDx(), pinkGhost.getX(), context, result ->
             "The pink ghost's x-coordinate is incorrect");
-        assertEquals(startY + Direction.DOWN.getDy(), pinkGhost.getY(), context, result ->
+        assertEquals(startY + Direction.LEFT.getDy(), pinkGhost.getY(), context, result ->
             "The pink ghost's y-coordinate is incorrect");
     }
 }
